@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,4 +25,11 @@ public class Post {
     private User user;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private Set<PriceHistory> priceHistory;
+    @ManyToMany
+    @JoinTable(
+            name = "participates",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+    )
+    private List<Post> participates = new ArrayList<>();
 }
