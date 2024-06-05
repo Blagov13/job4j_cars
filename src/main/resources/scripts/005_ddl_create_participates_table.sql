@@ -1,6 +1,6 @@
-CREATE TABLE participates (
+CREATE TABLE participates(
    id serial PRIMARY KEY,
-   user_id int not null REFERENCES user(id),
-   post_id int not null REFERENCES post(id),
-   UNIQUE (user_id, post_id)
+   auto_user_id int not null REFERENCES auto_user(id),
+   auto_post_id int not null REFERENCES auto_post(id),
+   UNIQUE (auto_user_id, auto_post_id)
 );

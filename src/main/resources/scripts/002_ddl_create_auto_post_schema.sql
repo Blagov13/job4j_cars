@@ -1,5 +1,4 @@
-create table if not exists auto_post
-(
+create table if not exists auto_post(
     id   serial primary key,
     description varchar not null,
     created timestamp not null,

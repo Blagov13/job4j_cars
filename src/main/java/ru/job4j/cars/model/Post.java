@@ -28,8 +28,11 @@ public class Post {
     @ManyToMany
     @JoinTable(
             name = "participates",
-            joinColumns = {@JoinColumn(name = "post_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+            joinColumns = {@JoinColumn(name = "auto_post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "auto_user_id")}
     )
     private List<Post> participates = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = ("car_id"))
+    private Car car;
 }
