@@ -19,7 +19,7 @@ public class Post {
     @EqualsAndHashCode.Include
     private Integer id;
     private String description;
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created;
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
     private User user;
@@ -31,8 +31,12 @@ public class Post {
             joinColumns = {@JoinColumn(name = "auto_post_id")},
             inverseJoinColumns = {@JoinColumn(name = "auto_user_id")}
     )
-    private List<Post> participates = new ArrayList<>();
+    private List<User> participates = new ArrayList<>();
     @OneToOne
     @JoinColumn(name = ("car_id"))
     private Car car;
+
+    public Post() {
+        this.created = LocalDateTime.now();
+    }
 }

@@ -20,6 +20,6 @@ public class User {
     @EqualsAndHashCode.Include
     private String login;
     private String password;
-    @OneToMany(mappedBy = "auto_user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Post> autoPost;
 }

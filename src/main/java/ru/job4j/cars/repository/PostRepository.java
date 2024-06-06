@@ -13,9 +13,14 @@ import java.util.Map;
 public class PostRepository {
     private final CrudRepository crudRepository;
 
+    public void save(Post post) {
+        crudRepository.run(session -> session.persist(post));
+    }
+
     public List<Post> findPostsLastDay() {
+        LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
         return crudRepository.query("FROM Post p WHERE p.created >= :yesterday",
-                Post.class, Map.of("yesterday", "%" + LocalDateTime.now().minusDays(1) + "%"));
+                Post.class, Map.of("yesterday", yesterday));
     }
 
     public List<Post> findPostsWithPhotos() {
@@ -23,7 +28,7 @@ public class PostRepository {
     }
 
     public List<Post> findPostByBrand(String brand) {
-        return crudRepository.query("FROM Post p WHERE p.car.name = :brand",
+        return crudRepository.query("FROM Post p WHERE p.car.name LIKE :brand",
                 Post.class, Map.of("brand", "%" + brand + "%"));
     }
 }
