@@ -30,4 +30,7 @@ public class Car {
             inverseJoinColumns = {
                     @JoinColumn(name = "owner_id", nullable = false, updatable = false)})
     private Set<Owner> owners = new HashSet<>();
+
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    private Set<File> files = new HashSet<>();
 }
