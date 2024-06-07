@@ -1,24 +1,26 @@
 package ru.job4j.cars.model;
 
 import lombok.*;
-
 import javax.persistence.*;
-import java.security.Timestamp;
 
 @Entity
-@Table(name = "history")
+@Table(name = "history_owner")
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
-public class History {
+@NoArgsConstructor
+public class HistoryOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer id;
-    private Timestamp startAt;
-    private  Timestamp endAt;
+
     @ManyToOne
-    @JoinColumn(name = "history_owner_id")
-    private HistoryOwner historyOwner;
+    @JoinColumn(name = "owners_id", nullable = false)
+    private Owner owner;
+
+    @ManyToOne
+    @JoinColumn(name = "car_id", nullable = false)
+    private Car car;
 }
