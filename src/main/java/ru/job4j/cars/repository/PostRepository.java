@@ -28,7 +28,7 @@ public class PostRepository {
     }
 
     public List<Post> findPostByBrand(String brand) {
-        return crudRepository.query("FROM Post p WHERE p.car.name LIKE :brand",
-                Post.class, Map.of("brand", "%" + brand + "%"));
+        return crudRepository.query("FROM Post p WHERE p.car.name = :brand",
+                Post.class, Map.of("brand", brand));
     }
 }
