@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+  <script th:src="@{/js/bootstrap.bundle.js}"></script>
+  <title>DOGAUTO</title>
+  <style>
+    body {
+      background-color: #ffffff;
+      font-family: 'Arial', sans-serif;
+    }
+    .accordion-button {
+      background-color: #ff9800;
+      color: white;
+    }
+    .accordion-button:not(.collapsed) {
+      color: #ff9800;
+      background-color: #fff3e0;
+    }
+    .accordion-item {
+      border: 1px solid #ff9800;
+    }
+    .btn-primary {
+      background-color: #ff9800;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #e68900;
+    }
+    .form-group label {
+      font-weight: bold;
+    }
+    .card-custom {
+      margin-bottom: 1rem;
+      border: 1px solid #dee2e6;
+      border-radius: 0.375rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .card-custom img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .card-custom .card-body {
+      padding: 1rem;
+      background-color: #fff3e0;
+    }
+    .card-title a {
+      color: #ff9800;
+      text-decoration: none;
+    }
+    .card-title a:hover {
+      text-decoration: underline;
+    }
+    .card-text strong {
+      color: #ff9800;
+    }
+  </style>
+  <script>
+    function onBrandChange() {
+        var brandId = document.getElementById("carBrand").value;
+        if (brandId) {
+            window.location.href = '/posts/selectCar?carBrandId=' + brandId + '&redirectPage=create';
+        }
+    }
+  </script>
+</head>
+
+<body>
+<div class="container-fluid p-0">
+  <header th:insert="~{blocks/header :: header_main}"></header>
+  <div class="container col-12">
+    <div class="row">
+      <div th:each="post: ${posts}" class="col-md-6">
+        <div class="card card-custom">
+          <div class="row no-gutters">
+            <div class="col-md-6">
+              <a th:href="@{/posts/{id}(id=${post.id})}">
+                <img th:if="${post.image != null}" th:src="@{/images/{imageId}(imageId=${post.image.id})}" class="img-fluid">
+                <img th:if="${post.image == null}" th:src="@{/images/defaultImage}" class="img-fluid">
+              </a>
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.car.carBrand.name} + ' ' + ${post.car.carModel.name}"></a>
+                </h5>
+                <p class="card-text">
+                  <strong>Двигатель:</strong> <span th:text="${post.car.carEngine.carFuelType.name} + ' ' + ${post.car.carEngine.carEngineSize.size} + 'л'"></span><br>
+                  <strong>Коробка:</strong> <span th:text="${post.car.carTransmission.name}"></span><br>
+                  <strong>Кузов:</strong> <span th:text="${post.car.carBody.name} + ' (кат. ' + ${post.car.carCategory.name} + ')'"></span><br>
+                  <strong>Цвет:</strong> <span th:text="${post.car.carColor.name}"></span><br>
+                  <strong>Год выпуска:</strong> <span th:text="${post.car.year}"></span><br>
+                  <strong>Пробег:</strong> <span th:text="${post.car.mileage}"></span>
+                </p>
+                <p class="card-text">
+                  <strong>Цена:</strong> <span th:text="${post.price} + 'р'"></span>
+                </p>
+                <p class="card-text">
+                  <strong>Описание:</strong> <span th:text="${post.description}" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer th:insert="~{blocks/footer :: footer}"></footer>
+</div>
+</body>
+</html>
+

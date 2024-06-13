@@ -7,7 +7,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.model.Car;
-import ru.job4j.cars.model.Engine;
+import ru.job4j.cars.model.CarEngine;
+import ru.job4j.cars.model.CarEngineSize;
 import ru.job4j.cars.model.Post;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ class PostRepositoryTest {
     private SessionFactory sf;
     private PostRepository postRepository;
     private CarRepository carRepository;
+    private CarEngineRepository engineRepository;
 
     @BeforeEach
     public void setUp() {
@@ -26,15 +28,16 @@ class PostRepositoryTest {
         CrudRepository crudRepository = new CrudRepository(sf);
         postRepository = new PostRepository(crudRepository);
         carRepository = new CarRepository(crudRepository);
-        EngineRepository engineRepository = new EngineRepository(crudRepository);
+        engineRepository = new CarEngineRepository(crudRepository);
 
-        Engine engine = new Engine();
-        engine.setName("V8");
+        CarEngineSize engineSize = new CarEngineSize();
+        engineSize.setSize(12);
+        CarEngine engine = new CarEngine();
+        engine.setCarEngineSize(engineSize);
         engineRepository.save(engine);
 
         Car car = new Car();
-        car.setName("TestCar");
-        car.setEngine(engine);
+        car.setCarEngine(engine);
         carRepository.save(car);
     }
 
@@ -44,7 +47,7 @@ class PostRepositoryTest {
         session.beginTransaction();
         session.createQuery("DELETE FROM Post").executeUpdate();
         session.createQuery("DELETE FROM Car").executeUpdate();
-        session.createQuery("DELETE FROM Engine").executeUpdate();
+        session.createQuery("DELETE FROM CarEngine").executeUpdate();
         session.getTransaction().commit();
         session.close();
         sf.close();

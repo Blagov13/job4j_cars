@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.model.User;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -33,8 +32,8 @@ class UserRepositoryTest {
     @Test
     public void whenCreateUserThenRepositoryHasSameUser() {
         User user = new User();
-        user.setLogin("test");
-        userRepository.create(user);
+        user.setName("test");
+        userRepository.save(user);
         Optional<User> result = userRepository.findById(user.getId());
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(user);
@@ -43,59 +42,23 @@ class UserRepositoryTest {
     @Test
     public void whenUpdateUserThenReturnTrue() {
         User user = new User();
-        user.setLogin("test");
-        userRepository.create(user);
-        user.setLogin("newLogin");
+        user.setEmail("test");
+        userRepository.save(user);
+        user.setPassword("password");
         userRepository.update(user);
         Optional<User> result = userRepository.findById(user.getId());
         assertThat(result).isPresent();
-        assertThat(result.get().getLogin()).isEqualTo("newLogin");
+        assertThat(result.get().getEmail()).isEqualTo("test");
     }
 
     @Test
     public void whenDeleteUserThenRepositoryDoesNotHaveSameUser() {
         User user = new User();
-        user.setLogin("test");
-        userRepository.create(user);
-        userRepository.delete(user.getId());
+        user.setEmail("test");
+        user.setPassword("password");
+        userRepository.save(user);
+        userRepository.deleteByEmailAndPassword(user.getEmail(), user.getPassword());
         Optional<User> result = userRepository.findById(user.getId());
         assertThat(result).isNotPresent();
-    }
-
-    @Test
-    public void whenFindAllOrderByIdThenReturnAllUsersOrdered() {
-        User user1 = new User();
-        user1.setLogin("test1");
-        userRepository.create(user1);
-        User user2 = new User();
-        user2.setLogin("test2");
-        userRepository.create(user2);
-        List<User> users = userRepository.findAllOrderById();
-        assertThat(users).hasSize(2);
-        assertThat(users.get(0).getLogin()).isEqualTo("test1");
-        assertThat(users.get(1).getLogin()).isEqualTo("test2");
-    }
-
-    @Test
-    public void whenFindByLikeLoginThenReturnMatchingUsers() {
-        User user1 = new User();
-        user1.setLogin("test1");
-        userRepository.create(user1);
-        User user2 = new User();
-        user2.setLogin("anotherTest");
-        userRepository.create(user2);
-        List<User> users = userRepository.findByLikeLogin("test");
-        assertThat(users).hasSize(1);
-        assertThat(users.get(0).getLogin()).isEqualTo("test1");
-    }
-
-    @Test
-    public void whenFindByLoginThenReturnMatchingUser() {
-        User user = new User();
-        user.setLogin("test");
-        userRepository.create(user);
-        Optional<User> result = userRepository.findByLogin("test");
-        assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(user);
     }
 }

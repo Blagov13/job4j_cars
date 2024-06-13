@@ -2,6 +2,7 @@ package ru.job4j.cars.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,11 +15,11 @@ public class PriceHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Integer id;
-    private int before;
-    private int after;
-    private LocalDateTime created = LocalDateTime.now();
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
+    private int id;
+
+    @EqualsAndHashCode.Include
+    private long price;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime date = LocalDateTime.now();
 }

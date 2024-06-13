@@ -5,15 +5,27 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <include file="scripts/001_ddl_create_auto_user_schema.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/002_ddl_create_auto_post_schema.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/update_004.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/005_ddl_create_participates_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/001_ddl_create_user_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/002_ddl_create_brand_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/003_ddl_create_model_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/004_ddl_create_body_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/005_ddl_create_fuel_type_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/006_ddl_create_engine_size_schema.sql" relativeToChangelogFile="true"/>
     <include file="scripts/007_ddl_create_engine_schema.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/008_ddl_create_owners_schema.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/006_ddl_create_car_schema.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/009_ddl_create_history_owners_schema.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/010_ddl_create_history_schema.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/011_add_car_to_auto_post.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/012_ddl_create_file_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/008_ddl_create_transmission_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/009_ddl_create_color_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/010_ddl_create_category_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/011_ddl_create_car_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/012_ddl_create_image_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/013_ddl_create_post_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/014_ddl_create_price_history_schema.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/101_dml_insert_brands.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/102_dml_insert_models.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/103_dml_insert_bodies.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/104_dml_insert_fuel_types.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/105_dml_insert_engine_sizes.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/106_dml_insert_transmissions.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/107_dml_insert_colors.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/108_dml_insert_categories.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/109_dml_insert_images.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+  <!--  Зависимости Bootstrap-->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+  <script th:src="@{/js/bootstrap.bundle.js}"></script>
+
+  <title>Объявление о продаже</title>
+  <style>
+    .navbar-custom {
+      background-color: #FF6600;
+    }
+    .navbar-brand img {
+      height: 80px;
+    }
+    .btn-custom {
+      background-color: #FF6600;
+      border-color: #FF6600;
+    }
+    .btn-custom:hover {
+      background-color: #cc5200;
+      border-color: #cc5200;
+    }
+    .accordion-button-custom {
+      background-color: #FF6600;
+      color: white;
+    }
+    .accordion-button-custom:not(.collapsed) {
+      color: white;
+      background-color: #cc5200;
+    }
+    .accordion-header h5 {
+      margin: 0;
+    }
+    .text-primary-custom {
+      color: #FF6600 !important;
+    }
+    .text-primary-custom:hover {
+      color: #cc5200 !important;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container-fluid p-0">
+  <header th:insert="~{blocks/header :: header_main}"></header>
+  <div class="container col-12 mt-4">
+    <div class="row border border-secondary rounded bg-light p-3 shadow-sm">
+      <div class="col-8">
+        <img th:if="${post.image != null}" th:src="@{/images/{imageId}(imageId=${post.image.id})}" class="rounded mx-auto d-block img-fluid" style="height:700px; width: 850px; object-fit: contain;">
+        <img th:if="${post.image == null}" th:src="@{/images/defaultImage}" class="rounded mx-auto d-block img-fluid" style="height:700px; width: 850px; object-fit: contain;">
+      </div>
+
+      <!-- Sidebar with car and post data. -->
+      <div class="col-4 bg-white p-3 rounded shadow-sm">
+        <h4 class="text-primary-custom mb-3">Детали автомобиля</h4>
+        <p><strong>Марка:</strong> <span th:text="${post.car.carBrand.name}"></span></p>
+        <p><strong>Модель:</strong> <span th:text="${post.car.carModel.name}"></span></p>
+        <p><strong>Кузов:</strong> <span th:text="${post.car.carBody.name}"></span></p>
+        <p><strong>Цвет:</strong> <span th:text="${post.car.carColor.name}"></span></p>
+        <p><strong>Двигатель:</strong> <span th:text="${post.car.carEngine.carFuelType.name} + ' ' + ${post.car.carEngine.carEngineSize.size} + 'л'"></span></p>
+        <p><strong>Коробка:</strong> <span th:text="${post.car.carTransmission.name}"></span></p>
+        <p><strong>Категория:</strong> <span th:text="${post.car.carCategory.name}"></span></p>
+        <p><strong>Год выпуска:</strong> <span th:text="${post.car.year}"></span></p>
+        <p><strong>Пробег:</strong> <span th:text="${post.car.mileage}"></span></p>
+        <p><strong>Стоимость:</strong> <span th:text="${post.price} + 'р'"></span></p>
+        <p><strong>Объявление создано:</strong> <span th:text="${#temporals.format(post.created, 'dd.MM.yyyy')}"></span></p>
+        <div class="accordion accordion-flush" id="hiddenPart">
+          <div class="accordion-item">
+            <h5 class="accordion-header" id="vinHeader">
+              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVin" aria-expanded="false" aria-controls="collapseVin">
+                <strong>Vin-номер</strong>
+              </button>
+            </h5>
+            <div id="collapseVin" class="accordion-collapse collapse" aria-labelledby="vinHeader" data-bs-parent="#hiddenPart">
+              <div class="accordion-body">
+                <span th:text="${post.car.vin}"></span>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h5 class="accordion-header" id="phoneHeader">
+              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePhone" aria-expanded="false" aria-controls="collapsePhone">
+                <strong>Телефон для связи</strong>
+              </button>
+            </h5>
+            <div id="collapsePhone" class="accordion-collapse collapse" aria-labelledby="phoneHeader" data-bs-parent="#hiddenPart">
+              <div class="accordion-body">
+                <span th:text="${post.user.phone}"></span></br>
+                <span th:text="${post.user.name}"></span>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h5 class="accordion-header" id="historyHeader">
+              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistory" aria-expanded="false" aria-controls="collapseHistory">
+                <strong>Изменение цен</strong>
+              </button>
+            </h5>
+            <div id="collapseHistory" class="accordion-collapse collapse" aria-labelledby="historyHeader" data-bs-parent="#hiddenPart">
+              <div class="accordion-body">
+                <p th:each="ph: ${post.priceHistories}" th:text="${ph.price} + 'р - ' + ${#temporals.format(ph.date, 'dd.MM.yyyy')}"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row mt-4">
+      <div class="col-12">
+        <h5 class="text-primary-custom">Описание</h5>
+        <p class="lh-sm" th:text="${post.description}"></p>
+      </div>
+    </div>
+  </div>
+  <footer th:insert="~{blocks/footer :: footer}"></footer>
+</div>
+</body>
+</html>

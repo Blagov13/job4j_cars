@@ -7,19 +7,22 @@ import java.util.Set;
 
 @Entity
 @Table(name = "auto_user")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer id;
+
     @EqualsAndHashCode.Include
-    private String login;
+    private String email;
+
     private String password;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Post> autoPost;
+
+    private String name;
+    private String phone;
 }

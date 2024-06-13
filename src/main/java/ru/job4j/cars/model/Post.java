@@ -2,15 +2,15 @@ package ru.job4j.cars.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "auto_post")
+@Table(name = "post")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 public class Post {
@@ -18,25 +18,30 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer id;
+
     private String description;
-    private LocalDateTime created;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime created = LocalDateTime.now();
+
     @ManyToOne
-    @JoinColumn(name = "auto_user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "USER_ID_FK"))
     private User user;
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private Set<PriceHistory> priceHistory;
-    @ManyToMany
-    @JoinTable(
-            name = "participates",
-            joinColumns = {@JoinColumn(name = "auto_post_id")},
-            inverseJoinColumns = {@JoinColumn(name = "auto_user_id")}
-    )
-    private List<User> participates = new ArrayList<>();
-    @OneToOne
-    @JoinColumn(name = ("car_id"))
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "post_id")
+    private Set<PriceHistory> priceHistories = new HashSet<>();
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "car_id", foreignKey = @ForeignKey(name = "CAR_ID_FK"))
+    @EqualsAndHashCode.Include
     private Car car;
 
-    public Post() {
-        this.created = LocalDateTime.now();
-    }
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "image_id", foreignKey = @ForeignKey(name = "IMAGE_ID_FK"))
+    private Image image;
+
+    private boolean sold;
+
+    private long price;
 }
