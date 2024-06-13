@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class CarCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private String name;
 }

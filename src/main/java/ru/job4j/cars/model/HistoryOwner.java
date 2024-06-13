@@ -14,7 +14,7 @@ public class HistoryOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Integer id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "owners_id", nullable = false)

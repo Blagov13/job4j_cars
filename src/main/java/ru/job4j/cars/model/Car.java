@@ -3,8 +3,6 @@ package ru.job4j.cars.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "car")
@@ -17,7 +15,7 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private int id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "brand_id", foreignKey = @ForeignKey(name = "BRAND_ID_FK"))
@@ -46,9 +44,6 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "CATEGORY_ID_FK"))
     private CarCategory carCategory;
-
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
-    private Set<Owner> carOwners = new HashSet<>();
 
     private int year;
 

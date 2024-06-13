@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class CarEngineSize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private float size;
 }

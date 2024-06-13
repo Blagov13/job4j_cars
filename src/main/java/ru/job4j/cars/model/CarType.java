@@ -15,6 +15,6 @@ public class CarType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private int id;
+    private long id;
     private String name;
 }

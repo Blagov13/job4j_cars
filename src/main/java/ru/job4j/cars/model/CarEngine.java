@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class CarEngine {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "fuel_type_id", foreignKey = @ForeignKey(name = "FUEL_TYPE_ID_FK"))

@@ -15,7 +15,7 @@ public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private Integer id;
+    private long id;
     private Timestamp startAt;
     private  Timestamp endAt;
     @ManyToOne

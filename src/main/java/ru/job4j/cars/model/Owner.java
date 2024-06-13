@@ -15,7 +15,7 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private int id;
+    private long id;
     private String name;
     @ManyToOne
     @JoinColumn(name = "car_id")

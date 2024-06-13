@@ -16,7 +16,7 @@ public class CarBrand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private int id;
+    private long id;
     private String name;
     @OneToMany(mappedBy = "brand")
     private List<CarModel> models;
